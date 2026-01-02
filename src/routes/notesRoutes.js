@@ -18,7 +18,7 @@ import {
 import { authenticate } from '../middleware/authenticate.js';
 
 const router = express.Router();
-router.use(authenticate);
+router.use('/', authenticate);
 
 router.get('/', celebrate(getAllNotesSchema), getAllNotes);
 router.get('/:noteId', celebrate(noteIdSchema), getNoteById);
