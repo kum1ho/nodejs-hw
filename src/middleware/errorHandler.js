@@ -1,5 +1,14 @@
+import { isHttpError } from 'http-errors';
+
 export const errorHandler = (error, req, res, next) => {
-  console.error('Error:', error);
+  if (isHttpError(error)) {
+    res.status(error.status).json({
+      message: error.message,
+    });
+    return;
+  }
+
+  console.error('Unexpected error:', error);
   res.status(500).json({
     message: error.message || 'Internal server error',
   });
